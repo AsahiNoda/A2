@@ -1,0 +1,57 @@
+﻿@page "{id:int}"
+@model InterportCargoQuotationSystem.Pages.Quotations.ViewModel
+
+<h2>Quotation Details</h2>
+
+@if (!Model.IsLoggedIn)
+{
+    <div class="alert alert-warning">
+        <strong>You must be logged in to use this feature.</strong><br />
+        <a class="btn btn-primary mt-2" asp-page="/Login">Go to Login</a>
+    </div>
+}
+else
+{
+    @if (Model.Quotation != null)
+    {
+        <div>
+            <p><strong>Email:</strong> @Model.Quotation.CustomerEmail</p>
+            <p><strong>Container Count:</strong> @Model.Quotation.ContainerCount</p>
+            <p><strong>Base Price:</strong> @Model.Quotation.BasePrice.ToString("C")</p>
+            <p><strong>Discount Applied:</strong> @Model.Quotation.DiscountApplied.ToString("C")</p>
+            <p><strong>Status:</strong> @Model.Quotation.Status</p>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.Quotation.CustomerFeedback))
+        {
+            <p><strong>Customer Feedback:</strong> @Model.Quotation.CustomerFeedback</p>
+        }
+
+        @if (Model.Quotation.Status == "Pending")
+        {
+            <form method="post">
+                <input type="hidden" asp-for="Quotation.Id" />
+
+                <label>Your message:</label><br />
+                <textarea asp-for="Quotation.CustomerFeedback" rows="4" cols="40"></textarea><br />
+
+                <label>Would you like to accept this quotation?</label><br />
+                <button name="decision" value="Accept">Accept</button>
+                <button name="decision" value="Reject">Reject</button>
+            </form>
+
+        }
+        else
+        {
+            <p><strong>You have already responded to this quotation.</strong></p>
+        }
+
+        @if (Model.Message != null)
+        {
+            <p><strong>@Model.Message</strong></p>
+        }
+    }
+    else
+    {
+        <p>Quotation not found.</p>
+    }
+}

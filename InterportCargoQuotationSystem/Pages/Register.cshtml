@@ -1,0 +1,63 @@
+﻿@page
+@model InterportCargoQuotationSystem.Pages.RegisterModel
+
+<h2 class="text-primary">Customer Registration</h2>
+
+<form method="post" class="p-4 border bg-light rounded">
+    <validation-summary class="text-danger"></validation-summary>
+
+    <div class="mb-3">
+        <label asp-for="Customer.FirstName" class="form-label">First Name</label>
+        <input asp-for="Customer.FirstName" class="form-control" />
+        <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Customer.FamilyName" class="form-label">Family Name</label>
+        <input asp-for="Customer.FamilyName" class="form-control" />
+        <span asp-validation-for="Customer.FamilyName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Customer.Email" class="form-label">Email</label>
+        <input asp-for="Customer.Email" class="form-control" />
+        <span asp-validation-for="Customer.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Customer.PhoneNumber" class="form-label">Phone Number</label>
+        <input asp-for="Customer.PhoneNumber" class="form-control" />
+        <span asp-validation-for="Customer.PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Customer.CompanyName" class="form-label">Company</label>
+        <input asp-for="Customer.CompanyName" class="form-control" />
+        <span asp-validation-for="Customer.CompanyName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Customer.Address" class="form-label">Address</label>
+        <input asp-for="Customer.Address" class="form-control" />
+        <span asp-validation-for="Customer.Address" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">Password</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+@if (Model.Message != null)
+{
+    <p class="text-success mt-2">@Model.Message</p>
+}
+
+<p class="mt-3">
+    Already have an account? <a asp-page="/Login">Login here</a>
+</p>
+
+<partial name="_ValidationScriptsPartial" />

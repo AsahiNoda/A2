@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36105.17
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterportCargoQuotationSystem", "InterportCargoQuotationSystem\InterportCargoQuotationSystem.csproj", "{7FCC02E9-A153-483B-99EE-F868E7FD8986}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterportCargoQuotationSystem.Tests", "InterportCargoQuotationSystem.Tests\InterportCargoQuotationSystem.Tests.csproj", "{4D507798-49D8-437B-A10B-E1692D327306}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FCC02E9-A153-483B-99EE-F868E7FD8986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FCC02E9-A153-483B-99EE-F868E7FD8986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FCC02E9-A153-483B-99EE-F868E7FD8986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FCC02E9-A153-483B-99EE-F868E7FD8986}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D507798-49D8-437B-A10B-E1692D327306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D507798-49D8-437B-A10B-E1692D327306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D507798-49D8-437B-A10B-E1692D327306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D507798-49D8-437B-A10B-E1692D327306}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E6AE130-7489-494D-B3DF-37D67036078A}
+	EndGlobalSection
+EndGlobal
