@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using InterportCargoQuotationSystem.Data;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
 
 namespace InterportCargoQuotationSystem.Pages
 {
@@ -16,34 +18,37 @@ namespace InterportCargoQuotationSystem.Pages
         }
 
         [BindProperty]
+        [Required]
+        [EmailAddress]
         public string Email { get; set; } = "";
 
         [BindProperty]
+        [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; } = "";
 
-        public string? ErrorMessage { get; set; }
+        public string? Message { get; set; }
 
         public IActionResult OnPost()
         {
-            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+            if (!ModelState.IsValid)
             {
-                ErrorMessage = "Please fill in all fields.";
                 return Page();
             }
 
-            string hash = ComputeSha256Hash(Password);
+            var hashed = ComputeSha256Hash(Password);
+            var customer = _context.Customers.FirstOrDefault(c => c.Email == Email && c.PasswordHash == hashed);
 
-            var customer = _context.Customers.FirstOrDefault(c => c.Email == Email && c.PasswordHash == hash);
-
-            if (customer != null)
+            if (customer == null)
             {
-                HttpContext.Session.SetString("IsLoggedIn", "true");
-                HttpContext.Session.SetString("UserEmail", customer.Email);
-                return RedirectToPage("/Index");
+                Message = "Invalid login credentials.";
+                return Page();
             }
 
-            ErrorMessage = "Invalid email or password";
-            return Page();
+            HttpContext.Session.SetString("IsLoggedIn", "true");
+            HttpContext.Session.SetString("UserEmail", Email);
+
+            return RedirectToPage("/Index");
         }
 
         private string ComputeSha256Hash(string rawData)

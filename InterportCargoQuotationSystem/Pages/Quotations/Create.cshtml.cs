@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using InterportCargoQuotationSystem.Models;
 using InterportCargoQuotationSystem.Data;
+using InterportCargoQuotationSystem.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace InterportCargoQuotationSystem.Pages.Quotations
 {
@@ -17,48 +18,28 @@ namespace InterportCargoQuotationSystem.Pages.Quotations
         [BindProperty]
         public Quotation Quotation { get; set; } = new();
 
-        public bool IsLoggedIn { get; set; }
-
-        public void OnGet()
-        {
-            IsLoggedIn = HttpContext.Session.GetString("IsLoggedIn") == "true";
-        }
+        public bool IsLoggedIn => HttpContext.Session.GetString("IsLoggedIn") == "true";
 
         public IActionResult OnPost()
         {
-            IsLoggedIn = HttpContext.Session.GetString("IsLoggedIn") == "true";
-
             if (!IsLoggedIn)
             {
-                ModelState.AddModelError(string.Empty, "You must be logged in to submit quotations.");
-                return Page();
+                return RedirectToPage("/Login");
             }
-
 
             if (!ModelState.IsValid)
+            {
                 return Page();
-
-
-            if (Quotation.ContainerCount >= 5)
-            {
-                Quotation.DiscountApplied = 0.1m * Quotation.BasePrice;
-            }
-            else if (Quotation.RequiresQuarantine || Quotation.RequiresFumigation)
-            {
-                Quotation.DiscountApplied = 0.05m * Quotation.BasePrice;
-            }
-            else
-            {
-                Quotation.DiscountApplied = 0m;
             }
 
-            Quotation.Status = "Pending";
-            Quotation.DateIssued = DateTime.Now;
+            // Basic quotation calculation
+            Quotation.Amount = Math.Round(Quotation.BasePrice * Quotation.ContainerCount, 2);
+            Quotation.DateCreated = DateTime.Now;
 
             _context.Quotations.Add(Quotation);
             _context.SaveChanges();
 
-            return RedirectToPage("/Quotations/View", new { id = Quotation.Id });
+            return RedirectToPage("Index");
         }
     }
 }

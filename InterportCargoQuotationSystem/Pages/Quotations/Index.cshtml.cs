@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using InterportCargoQuotationSystem.Data;
 using InterportCargoQuotationSystem.Models;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace InterportCargoQuotationSystem.Pages.Quotations
 {
@@ -16,21 +18,11 @@ namespace InterportCargoQuotationSystem.Pages.Quotations
 
         public List<Quotation> Quotations { get; set; } = new();
 
-        [BindProperty(SupportsGet = true)]
-        public string? Status { get; set; }
+        public bool IsLoggedIn => HttpContext.Session.GetString("IsLoggedIn") == "true";
 
-        public bool IsLoggedIn { get; set; }
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            IsLoggedIn = HttpContext.Session.GetString("IsLoggedIn") == "true";
-
-            if (!IsLoggedIn) return;
-            var query = _context.Quotations.AsQueryable();
-
-            if (!string.IsNullOrEmpty(Status))
-                query = query.Where(q => q.Status == Status);
-
-            Quotations = query.OrderByDescending(q => q.DateIssued).ToList();
+            Quotations = await _context.Quotations.ToListAsync();
         }
     }
 }

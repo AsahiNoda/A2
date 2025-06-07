@@ -1,39 +1,50 @@
 ﻿@page
 @model InterportCargoQuotationSystem.Pages.Quotations.CreateModel
 
-<h2 class="text-primary">Create Quotation</h2>
+<div class="container mt-4">
+    <h2 class="text-primary">Create Quotation</h2>
 
-@if (!Model.IsLoggedIn)
-{
-    <div class="alert alert-warning">
-        <strong>You must be logged in to use this feature.</strong><br />
-        <a class="btn btn-primary mt-2" asp-page="/Login">Go to Login</a>
-    </div>
-}
-else
-{
-    <form method="post" class="p-4 border bg-light rounded">
-        <div class="mb-3">
-            <label asp-for="Quotation.CustomerEmail" class="form-label">Email</label>
-            <input asp-for="Quotation.CustomerEmail" class="form-control" />
+    @if (!Model.IsLoggedIn)
+    {
+        <div class="alert alert-warning">
+            You must be logged in to create a quotation.
+            <a class="btn btn-outline-primary mt-2" asp-page="/Login">Go to Login</a>
         </div>
-        <div class="mb-3">
-            <label asp-for="Quotation.ContainerCount" class="form-label">Container Count</label>
-            <input asp-for="Quotation.ContainerCount" type="number" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Quotation.BasePrice" class="form-label">Base Price</label>
-            <input asp-for="Quotation.BasePrice" type="number" step="0.01" class="form-control" />
-        </div>
-        <div class="form-check mb-2">
-            <input asp-for="Quotation.RequiresQuarantine" class="form-check-input" />
-            <label asp-for="Quotation.RequiresQuarantine" class="form-check-label">Requires Quarantine</label>
-        </div>
-        <div class="form-check mb-3">
-            <input asp-for="Quotation.RequiresFumigation" class="form-check-input" />
-            <label asp-for="Quotation.RequiresFumigation" class="form-check-label">Requires Fumigation</label>
-        </div>
+    }
+    else
+    {
+        <form method="post" class="p-4 border bg-white shadow-sm rounded">
+            <div class="mb-3">
+                <label asp-for="Quotation.CustomerEmail" class="form-label">Email</label>
+                <input asp-for="Quotation.CustomerEmail" class="form-control" />
+                <span asp-validation-for="Quotation.CustomerEmail" class="text-danger"></span>
+            </div>
 
-        <button type="submit" class="btn btn-success">Create</button>
-    </form>
-}
+            <div class="mb-3">
+                <label asp-for="Quotation.ContainerCount" class="form-label">Container Count</label>
+                <input asp-for="Quotation.ContainerCount" type="number" class="form-control" />
+                <span asp-validation-for="Quotation.ContainerCount" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Quotation.BasePrice" class="form-label">Base Price</label>
+                <input asp-for="Quotation.BasePrice" type="number" step="0.01" class="form-control" />
+                <span asp-validation-for="Quotation.BasePrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-2">
+                <input asp-for="Quotation.RequiresQuarantine" class="form-check-input" />
+                <label asp-for="Quotation.RequiresQuarantine" class="form-check-label">Requires Quarantine</label>
+            </div>
+
+            <div class="form-check mb-3">
+                <input asp-for="Quotation.RequiresFumigation" class="form-check-input" />
+                <label asp-for="Quotation.RequiresFumigation" class="form-check-label">Requires Fumigation</label>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Submit Quotation</button>
+        </form>
+    }
+</div>
+
+<partial name="_ValidationScriptsPartial" />

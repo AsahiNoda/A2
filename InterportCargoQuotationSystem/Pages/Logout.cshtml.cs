@@ -1,20 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace InterportCargoQuotationSystem.Pages
 {
     public class LogoutModel : PageModel
     {
-        public void OnGet() { }
-
-        public IActionResult OnPost()
+        public void OnGet()
         {
-
             HttpContext.Session.Clear();
-
-
-            return RedirectToPage("/Index");
         }
     }
 }

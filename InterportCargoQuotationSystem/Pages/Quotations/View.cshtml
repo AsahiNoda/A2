@@ -18,10 +18,15 @@ else
             <p><strong>Email:</strong> @Model.Quotation.CustomerEmail</p>
             <p><strong>Container Count:</strong> @Model.Quotation.ContainerCount</p>
             <p><strong>Base Price:</strong> @Model.Quotation.BasePrice.ToString("C")</p>
-            <p><strong>Discount Applied:</strong> @Model.Quotation.DiscountApplied.ToString("C")</p>
-            <p><strong>Status:</strong> @Model.Quotation.Status</p>
-        </div>
-        @if (!string.IsNullOrEmpty(Model.Quotation.CustomerFeedback))
+            <p>
+                <strong>Discount Applied:</strong>
+            <p><strong>Requires Quarantine:</strong> @(Model.Quotation.RequiresQuarantine ? "Yes" : "No")</p>
+
+
+    </p>
+    <p><strong>Status:</strong> @Model.Quotation.Status</p>
+</div>
+@if (!string.IsNullOrEmpty(Model.Quotation.CustomerFeedback))
         {
             <p><strong>Customer Feedback:</strong> @Model.Quotation.CustomerFeedback</p>
         }
@@ -38,7 +43,6 @@ else
                 <button name="decision" value="Accept">Accept</button>
                 <button name="decision" value="Reject">Reject</button>
             </form>
-
         }
         else
         {

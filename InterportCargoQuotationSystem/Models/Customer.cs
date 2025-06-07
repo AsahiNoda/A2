@@ -23,7 +23,7 @@ namespace InterportCargoQuotationSystem.Models
         [Required]
         public string Address { get; set; } = "";
 
-        [Required, DataType(DataType.Password)]
-        public string PasswordHash { get; set; } = ""; 
+        // 🔒 Do NOT require this via form — it's set in code-behind
+        public string PasswordHash { get; set; } = "";
     }
 }
