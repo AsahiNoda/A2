@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InterportCargoQuotationSystem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36ebe9860b1c4678cc9285021e458a6ca08a1ef4")]
 [assembly: System.Reflection.AssemblyProductAttribute("InterportCargoQuotationSystem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InterportCargoQuotationSystem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

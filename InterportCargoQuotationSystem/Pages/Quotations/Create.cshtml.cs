@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using InterportCargoQuotationSystem.Data;
 using InterportCargoQuotationSystem.Models;
-using System.ComponentModel.DataAnnotations;
 
 namespace InterportCargoQuotationSystem.Pages.Quotations
 {
@@ -18,28 +17,29 @@ namespace InterportCargoQuotationSystem.Pages.Quotations
         [BindProperty]
         public Quotation Quotation { get; set; } = new();
 
-        public bool IsLoggedIn => HttpContext.Session.GetString("IsLoggedIn") == "true";
+        public string? UserEmail { get; set; }
+        public bool IsLoggedIn { get; set; }
+
+        public IActionResult OnGet()
+        {
+            UserEmail = HttpContext.Session.GetString("UserEmail");
+            IsLoggedIn = !string.IsNullOrWhiteSpace(UserEmail);
+            return Page();
+        }
 
         public IActionResult OnPost()
         {
-            if (!IsLoggedIn)
-            {
+            UserEmail = HttpContext.Session.GetString("UserEmail");
+            if (string.IsNullOrWhiteSpace(UserEmail))
                 return RedirectToPage("/Login");
-            }
 
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            // Basic quotation calculation
-            Quotation.Amount = Math.Round(Quotation.BasePrice * Quotation.ContainerCount, 2);
-            Quotation.DateCreated = DateTime.Now;
+            Quotation.CustomerEmail = UserEmail;
+            Quotation.DateIssued = DateTime.UtcNow;
 
             _context.Quotations.Add(Quotation);
             _context.SaveChanges();
 
-            return RedirectToPage("Index");
+            return RedirectToPage("/Quotations/Index");
         }
     }
 }

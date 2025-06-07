@@ -55,14 +55,49 @@ namespace InterportCargoQuotationSystem.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("InterportCargoQuotationSystem.Models.Quotation", b =>
+            modelBuilder.Entity("InterportCargoQuotationSystem.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Amount")
+                    b.Property<string>("Address")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EmployeeType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FamilyName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("InterportCargoQuotationSystem.Models.Quotation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("BasePrice")
                         .HasColumnType("TEXT");
@@ -77,11 +112,11 @@ namespace InterportCargoQuotationSystem.Migrations
                     b.Property<string>("CustomerFeedback")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("DateIssued")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("DiscountApplied")
-                        .HasColumnType("INTEGER");
+                    b.Property<decimal>("DiscountApplied")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("RequiresFumigation")
                         .HasColumnType("INTEGER");

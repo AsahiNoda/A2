@@ -12,5 +12,6 @@ namespace InterportCargoQuotationSystem.Data
         public DbSet<Quotation> Quotations { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
+        public DbSet<Employee> Employees { get; set; }
     }
 }

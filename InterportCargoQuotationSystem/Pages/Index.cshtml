@@ -1,56 +1,15 @@
 ﻿@page
-@model InterportCargoQuotationSystem.Pages.Quotations.IndexModel
-@{
-    ViewData["Title"] = "Quotation List";
-    Layout = "_Layout";
-}
+@model InterportCargoQuotationSystem.Pages.IndexModel
 
-<div class="container mt-5">
-    <h2 class="text-primary">Quotation List</h2>
-    <hr />
-
-    @if (!Model.IsLoggedIn)
-    {
-        <div class="alert alert-warning">
-            <strong>You must be logged in to view quotations.</strong><br />
-            <a class="btn btn-primary mt-2" asp-page="/Login">Go to Login</a>
-        </div>
-    }
-    else if (!Model.Quotations.Any())
-    {
-        <div class="alert alert-info">
-            No quotations available.
-        </div>
-    }
-    else
-    {
-        <table class="table table-bordered table-striped mt-4">
-            <thead class="table-dark">
-                <tr>
-                    <th>Email</th>
-                    <th>Container Count</th>
-                    <th>Base Price</th>
-                    <th>Quarantine</th>
-                    <th>Fumigation</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var quotation in Model.Quotations)
-                {
-                    <tr>
-                        <td>@quotation.CustomerEmail</td>
-                        <td>@quotation.ContainerCount</td>
-                        <td>$@quotation.BasePrice</td>
-                        <td>@(quotation.RequiresQuarantine ? "Yes" : "No")</td>
-                        <td>@(quotation.RequiresFumigation ? "Yes" : "No")</td>
-                        <td>
-                            <a asp-page="/Quotations/Edit" asp-route-id="@quotation.Id" class="btn btn-sm btn-primary">Edit</a>
-                            <a asp-page="/Quotations/Delete" asp-route-id="@quotation.Id" class="btn btn-sm btn-danger ms-2">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
+<div style="margin: 0; padding: 0;">
+    <img src="/images/home-banner.png"
+         alt="InterportCargo Banner"
+         style="width: 100vw; height: auto; display: block;" />
 </div>
+
+<section class="text-center p-4">
+    <p class="lead">
+        Welcome to the InterportCargo Quotation System.
+        Use the navigation menu above to register, log in, and manage your freight quotations.
+    </p>
+</section>

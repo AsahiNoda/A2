@@ -82,8 +82,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVvdGF0aW9uc1xWaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/nasah/OneDrive - Queensland University of Technology/IAB251/Assignment2/IAB251-Assignment2/AsahiNoda/A2/InterportCargoQuotationSystem/Pages/RateSchedule.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmF0ZVNjaGVkdWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/nasah/OneDrive - Queensland University of Technology/IAB251/Assignment2/IAB251-Assignment2/AsahiNoda/A2/InterportCargoQuotationSystem/Pages/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nasah/OneDrive - Queensland University of Technology/IAB251/Assignment2/IAB251-Assignment2/AsahiNoda/A2/InterportCargoQuotationSystem/Pages/RegisterEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXJFbXBsb3llZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/nasah/OneDrive - Queensland University of Technology/IAB251/Assignment2/IAB251-Assignment2/AsahiNoda/A2/InterportCargoQuotationSystem/Pages/Shared/_ValidationScriptsPartial.cshtml]

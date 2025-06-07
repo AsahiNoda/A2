@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36105.17
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterportCargoQuotationSystem", "InterportCargoQuotationSystem\InterportCargoQuotationSystem.csproj", "{7FCC02E9-A153-483B-99EE-F868E7FD8986}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterportCargoQuotationSystem.Tests", "InterportCargoQuotationSystem.Tests\InterportCargoQuotationSystem.Tests.csproj", "{4D507798-49D8-437B-A10B-E1692D327306}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "InterportCargoQuotationSystem.Tests\UnitTest.csproj", "{4D507798-49D8-437B-A10B-E1692D327306}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
