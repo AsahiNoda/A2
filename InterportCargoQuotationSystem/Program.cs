@@ -1,4 +1,5 @@
 using InterportCargoQuotationSystem.Data;
+using InterportCargoQuotationSystem.Services;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml; // Add this using directive for EPPlus
 
@@ -14,6 +15,9 @@ namespace InterportCargoQuotationSystem
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddScoped<DiscountService>();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));

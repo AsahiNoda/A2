@@ -1,0 +1,77 @@
+﻿@page
+@model InterportCargoQuotationSystem.Pages.Quotations.MyQuotationsModel
+@{
+    ViewData["Title"] = "My Quotations";
+}
+
+<h2 class="mb-4">My Quotations</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+@if (Model.Quotations.Count == 0)
+{
+    <div class="alert alert-info">No quotations found for your account.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date Issued</th>
+                <th>Status</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var q in Model.Quotations)
+            {
+                <tr>
+                    <td>@q.Id</td>
+                    <td>@q.DateIssued.ToShortDateString()</td>
+                    <td>
+                        @if (q.Status == "Accepted")
+                        {
+                            <span class="text-success fw-bold">Accepted</span>
+                        }
+                        else if (q.Status == "Rejected")
+                        {
+                            <span class="text-danger fw-bold">Rejected</span>
+                        }
+                        else
+                        {
+                            <span class="text-warning">Pending</span>
+                        }
+                    </td>
+                    <td>
+                        @String.Format("${0:0.00}", q.BasePrice - q.DiscountApplied)
+                    </td>
+                    <td>
+                        @if (q.Status == "Pending")
+                        {
+                            <form method="post" class="d-inline">
+                                <input type="hidden" name="QuotationId" value="@q.Id" />
+                                <button name="action" value="Accept" class="btn btn-success btn-sm">Accept</button>
+                                <button name="action" value="Reject" class="btn btn-danger btn-sm">Reject</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No action available</span>
+                        }
+
+                        <a asp-page="/Quotations/View" asp-route-id="@q.Id" class="btn btn-info btn-sm ms-2">View</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

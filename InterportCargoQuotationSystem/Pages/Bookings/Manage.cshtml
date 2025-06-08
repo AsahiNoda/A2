@@ -1,0 +1,67 @@
+﻿@page
+@model InterportCargoQuotationSystem.Pages.Bookings.ManageModel
+
+<h2>Booking Management</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+@if (!Model.Quotations.Any())
+{
+    <div class="alert alert-info">No quotations available for booking.</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Containers</th>
+                <th>Total Price</th>
+                <th>Booked</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var q in Model.Quotations)
+            {
+                <tr>
+                    <td>@q.Id</td>
+                    <td>@q.CustomerEmail</td>
+                    <td>@q.ContainerCount</td>
+                    <td>@String.Format("${0:0.00}", q.BasePrice - q.DiscountApplied)</td>
+                    <td>
+                        @if (q.Booked)
+                        {
+                            <span class="text-success">✓ Booked</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No</span>
+                        }
+                    </td>
+                    <td>
+                        @if (!q.Booked)
+                        {
+                            <form method="post">
+                                <input type="hidden" name="quotationId" value="@q.Id" />
+                                <button class="btn btn-primary btn-sm">Book</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No action</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

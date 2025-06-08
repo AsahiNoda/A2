@@ -12,6 +12,7 @@ namespace InterportCargoQuotationSystem.Models
 
         public DateTime DateIssued { get; set; } = DateTime.Now;
 
+        [Range(1, int.MaxValue, ErrorMessage = "Container count must be positive.")]
         public int ContainerCount { get; set; }
 
         public bool RequiresQuarantine { get; set; }
@@ -26,5 +27,13 @@ namespace InterportCargoQuotationSystem.Models
         public string Status { get; set; } = "Pending";
 
         public string? CustomerFeedback { get; set; }
+        public bool Booked { get; set; } = false;
+        public string OriginCountry { get; set; } = string.Empty;
+        public string DestinationCountry { get; set; } = string.Empty;
+        public string PackageType { get; set; } = string.Empty;
+        public decimal PackageWidth { get; set; }
+        public decimal PackageHeight { get; set; }
+
+
     }
 }

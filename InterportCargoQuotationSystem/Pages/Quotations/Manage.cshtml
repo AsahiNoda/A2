@@ -1,0 +1,64 @@
+﻿@page
+@model InterportCargoQuotationSystem.Pages.Quotations.ManageModel
+
+<h2>Quotation Management</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+<a asp-page="/Quotations/Create" class="btn btn-primary mb-3">+ Create New Quotation</a>
+
+
+@if (Model.Quotations.Count == 0)
+{
+    <p>No quotations found.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Quotation #</th>
+                <th>Customer</th>
+                <th>Date Issued</th>
+                <th>Status</th>
+                <th>Discount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var q in Model.Quotations)
+            {
+                <tr>
+                    <td>@q.Id</td>
+                    <td>@q.CustomerEmail</td>
+                    <td>@q.DateIssued.ToShortDateString()</td>
+                    <td>@q.Status</td>
+                    <td>
+                        @if (q.DiscountApplied > 0)
+                        {
+                            <span class="text-success">
+                                - @String.Format("{0:0.##}%", (q.DiscountApplied / q.BasePrice) * 100)<br />
+                                - $@String.Format("{0:0.00}", q.DiscountApplied)<br />
+                                → <strong>@String.Format("${0:0.00}", q.BasePrice - q.DiscountApplied)</strong>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No discount</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-page="/Quotations/View" asp-route-id="@q.Id" class="btn btn-info btn-sm ms-2">View</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

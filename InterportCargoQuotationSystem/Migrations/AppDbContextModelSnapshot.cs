@@ -102,6 +102,9 @@ namespace InterportCargoQuotationSystem.Migrations
                     b.Property<decimal>("BasePrice")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("Booked")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("ContainerCount")
                         .HasColumnType("INTEGER");
 
@@ -115,7 +118,25 @@ namespace InterportCargoQuotationSystem.Migrations
                     b.Property<DateTime>("DateIssued")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DestinationCountry")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("DiscountApplied")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginCountry")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("PackageHeight")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PackageType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("PackageWidth")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("RequiresFumigation")

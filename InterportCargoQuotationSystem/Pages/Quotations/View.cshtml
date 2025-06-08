@@ -1,57 +1,93 @@
-﻿@page "{id:int}"
+﻿@page "{id:int?}"
 @model InterportCargoQuotationSystem.Pages.Quotations.ViewModel
 
 <h2>Quotation Details</h2>
 
-@if (!Model.IsLoggedIn)
+@if (TempData["Message"] != null)
 {
-    <div class="alert alert-warning">
-        <strong>You must be logged in to use this feature.</strong><br />
-        <a class="btn btn-primary mt-2" asp-page="/Login">Go to Login</a>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+}
+
+
+@if (Model.Quotation == null)
+{
+    <p class="text-danger">Quotation not found.</p>
 }
 else
 {
-    @if (Model.Quotation != null)
+    <dl class="row">
+        <dt class="col-sm-3">Customer</dt>
+        <dd class="col-sm-9">@Model.Quotation.CustomerEmail</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Model.Quotation.Status</dd>
+
+        <dt class="col-sm-3">Base Price</dt>
+        <dd class="col-sm-9">@String.Format("${0:0.00}", Model.Quotation.BasePrice)</dd>
+
+        <dt class="col-sm-3">Discount</dt>
+        <dd class="col-sm-9">
+            @if (Model.Quotation.DiscountApplied > 0)
+            {
+                <span class="text-success">
+                    - @String.Format("{0:0.##}%", (Model.Quotation.DiscountApplied / Model.Quotation.BasePrice) * 100)<br />
+                    - $@String.Format("{0:0.00}", Model.Quotation.DiscountApplied)<br />
+                    → <strong>@String.Format("${0:0.00}", Model.Quotation.BasePrice - Model.Quotation.DiscountApplied)</strong>
+                </span>
+            }
+            else
+            {
+                <span class="text-muted">No discount</span>
+            }
+        </dd>
+        <dt class="col-sm-3">Origin</dt>
+        <dd class="col-sm-9">@Model.Quotation.OriginCountry</dd>
+
+        <dt class="col-sm-3">Destination</dt>
+        <dd class="col-sm-9">@Model.Quotation.DestinationCountry</dd>
+
+        <dt class="col-sm-3">Package Type</dt>
+        <dd class="col-sm-9">@Model.Quotation.PackageType</dd>
+
+        <dt class="col-sm-3">Width (cm)</dt>
+        <dd class="col-sm-9">@Model.Quotation.PackageWidth</dd>
+
+        <dt class="col-sm-3">Height (cm)</dt>
+        <dd class="col-sm-9">@Model.Quotation.PackageHeight</dd>
+
+        <dt class="col-sm-3">Issued</dt>
+        <dd class="col-sm-9">@Model.Quotation.DateIssued</dd>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Quotation.CustomerFeedback))
+        {
+            <dt class="col-sm-3">Previous Feedback</dt>
+            <dd class="col-sm-9">@Model.Quotation.CustomerFeedback</dd>
+        }
+    </dl>
+
+    @if (Model.Quotation.Status == "Pending" &&
+         HttpContext.Session.GetString("UserType") == "Customer")
     {
-        <div>
-            <p><strong>Email:</strong> @Model.Quotation.CustomerEmail</p>
-            <p><strong>Container Count:</strong> @Model.Quotation.ContainerCount</p>
-            <p><strong>Base Price:</strong> @Model.Quotation.BasePrice.ToString("C")</p>
-            <p><strong>Discount Applied:</strong> @Model.Quotation.DiscountApplied.ToString("C")</p>
-            <p><strong>Status:</strong> @Model.Quotation.Status</p>
-        </div>
-        @if (!string.IsNullOrEmpty(Model.Quotation.CustomerFeedback))
-        {
-            <p><strong>Customer Feedback:</strong> @Model.Quotation.CustomerFeedback</p>
-        }
+        <form method="post" class="mb-3">
+            <div class="form-group">
+                <label for="feedback">Feedback (optional)</label>
+                <textarea asp-for="Quotation.CustomerFeedback" class="form-control" rows="3"></textarea>
+            </div>
 
-        @if (Model.Quotation.Status == "Pending")
-        {
-            <form method="post">
-                <input type="hidden" asp-for="Quotation.Id" />
-
-                <label>Your message:</label><br />
-                <textarea asp-for="Quotation.CustomerFeedback" rows="4" cols="40"></textarea><br />
-
-                <label>Would you like to accept this quotation?</label><br />
-                <button name="decision" value="Accept">Accept</button>
-                <button name="decision" value="Reject">Reject</button>
-            </form>
-
-        }
-        else
-        {
-            <p><strong>You have already responded to this quotation.</strong></p>
-        }
-
-        @if (Model.Message != null)
-        {
-            <p><strong>@Model.Message</strong></p>
-        }
+            <div class="mt-3">
+                <button type="submit" name="decision" value="Accept" class="btn btn-success me-2">Accept</button>
+                <button type="submit" name="decision" value="Reject" class="btn btn-danger">Reject</button>
+            </div>
+        </form>
     }
-    else
+
+    @if (!string.IsNullOrEmpty(Model.Message))
     {
-        <p>Quotation not found.</p>
+        <div class="alert alert-info mt-3">@Model.Message</div>
     }
+
+    <a asp-page="@Model.ReturnPage" class="btn btn-secondary mt-3">← Back</a>
 }
